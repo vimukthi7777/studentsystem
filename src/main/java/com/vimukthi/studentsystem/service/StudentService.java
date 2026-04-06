@@ -25,6 +25,14 @@ public class StudentService {
         return studentRepo.findById(id).orElseThrow();
     }
 
+    // Add to StudentService.java
+    public Student update(Long id, Student studentDetails) {
+        Student student = studentRepo.findById(id).orElseThrow();
+        student.setName(studentDetails.getName());
+        student.setPhoneNumber(studentDetails.getPhoneNumber());
+        return studentRepo.save(student);
+    }
+
     public void delete(Long id) {
         studentRepo.deleteById(id);
     }

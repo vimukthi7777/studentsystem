@@ -34,6 +34,23 @@ public class EnrollmentService {
         return enrollmentRepo.save(enrollment);
     }
 
+
+    // UPDATE Marks
+    public Enrollment updateMarks(Long enrollmentId, Double newMarks) {
+        Enrollment enrollment = enrollmentRepo.findById(enrollmentId)
+                .orElseThrow(() -> new RuntimeException("Enrollment record not found"));
+
+        enrollment.setMarks(newMarks);
+        enrollment.setGrade(calculateGrade(newMarks)); // Re-calculate grade automatically!
+
+        return enrollmentRepo.save(enrollment);
+    }
+
+    // DELETE Enrollment (Remove student from course)
+    public void deleteEnrollment(Long enrollmentId) {
+        enrollmentRepo.deleteById(enrollmentId);
+    }
+
     public List<Enrollment> getStudentResults(Long studentId) {
         return enrollmentRepo.findByStudentId(studentId);
     }

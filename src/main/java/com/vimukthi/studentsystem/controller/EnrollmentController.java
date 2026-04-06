@@ -16,19 +16,32 @@ public class EnrollmentController {
 
     private final EnrollmentService enrollmentService;
 
-    // POST: /api/v1/enrollments/add-marks
+    // CREATE: Enroll Student and Add Marks
     @PostMapping("/add-marks")
     public ResponseEntity<Enrollment> addMarks(@RequestBody Map<String, Object> data) {
         Long studentId = Long.valueOf(data.get("studentId").toString());
         Long courseId = Long.valueOf(data.get("courseId").toString());
         Double marks = Double.valueOf(data.get("marks").toString());
-
         return ResponseEntity.ok(enrollmentService.addMarks(studentId, courseId, marks));
     }
 
-    // GET: /api/v1/enrollments/results/1
+    // READ: Get results for a specific student
     @GetMapping("/results/{studentId}")
     public ResponseEntity<List<Enrollment>> getResults(@PathVariable Long studentId) {
         return ResponseEntity.ok(enrollmentService.getStudentResults(studentId));
+    }
+
+    // UPDATE: Modify marks for an existing enrollment
+    @PutMapping("/update-marks/{enrollmentId}")
+    public ResponseEntity<Enrollment> updateMarks(@PathVariable Long enrollmentId, @RequestBody Map<String, Double> data) {
+        Double newMarks = data.get("marks");
+        return ResponseEntity.ok(enrollmentService.updateMarks(enrollmentId, newMarks));
+    }
+
+    // DELETE: Remove a student from a course (Delete enrollment record)
+    @DeleteMapping("/{enrollmentId}")
+    public ResponseEntity<String> deleteEnrollment(@PathVariable Long enrollmentId) {
+        enrollmentService.deleteEnrollment(enrollmentId);
+        return ResponseEntity.ok("Enrollment record removed successfully!");
     }
 }

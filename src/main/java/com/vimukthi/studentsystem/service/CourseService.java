@@ -25,4 +25,17 @@ public class CourseService {
     public Course getById(Long id) {
         return courseRepo.findById(id).orElseThrow();
     }
+
+    // Add to CourseService.java
+    public Course update(Long id, Course courseDetails) {
+        Course course = courseRepo.findById(id).orElseThrow();
+        course.setName(courseDetails.getName());
+        course.setDuration(courseDetails.getDuration());
+        course.setCreditCount(courseDetails.getCreditCount());
+        return courseRepo.save(course);
+    }
+
+    public void delete(Long id) {
+        courseRepo.deleteById(id);
+    }
 }
