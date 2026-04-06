@@ -1,6 +1,7 @@
 package com.vimukthi.studentsystem.controller;
 
 import com.vimukthi.studentsystem.entity.Course;
+import com.vimukthi.studentsystem.entity.Student;
 import com.vimukthi.studentsystem.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,11 @@ public class CourseController {
     @GetMapping("/all")
     public ResponseEntity<List<Course>> getAll() {
         return ResponseEntity.ok(courseService.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Course> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(courseService.getById(id));
     }
 
     @PutMapping("/{id}")

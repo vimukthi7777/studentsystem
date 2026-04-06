@@ -16,6 +16,15 @@ public class EnrollmentController {
 
     private final EnrollmentService enrollmentService;
 
+    // POST: http://localhost:8282/api/v1/enrollments/student/1/course/2
+    @PostMapping("/student/{studentId}/course/{courseId}")
+    public ResponseEntity<Enrollment> enrollOnly(
+            @PathVariable Long studentId,
+            @PathVariable Long courseId) {
+
+        return ResponseEntity.ok(enrollmentService.enrollOnly(studentId, courseId));
+    }
+
     // CREATE: Enroll Student and Add Marks
     @PostMapping("/add-marks")
     public ResponseEntity<Enrollment> addMarks(@RequestBody Map<String, Object> data) {

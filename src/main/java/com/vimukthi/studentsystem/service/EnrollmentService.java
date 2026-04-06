@@ -19,6 +19,19 @@ public class EnrollmentService {
     private final StudentRepo studentRepo;
     private final CourseRepo courseRepo;
 
+    public Enrollment enrollOnly(Long studentId, Long courseId) {
+        Student student = studentRepo.findById(studentId).orElseThrow();
+        Course course = courseRepo.findById(courseId).orElseThrow();
+
+        Enrollment enrollment = new Enrollment();
+        enrollment.setStudent(student);
+        enrollment.setCourse(course);
+        enrollment.setMarks(null); // No marks yet
+        enrollment.setGrade("PENDING"); // Set a default status instead of a grade
+
+        return enrollmentRepo.save(enrollment);
+    }
+
     public Enrollment addMarks(Long studentId, Long courseId, Double marks) {
         Student student = studentRepo.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
         Course course = courseRepo.findById(courseId).orElseThrow(() -> new RuntimeException("Course not found"));
