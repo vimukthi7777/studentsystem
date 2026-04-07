@@ -53,4 +53,18 @@ public class EnrollmentController {
         enrollmentService.deleteEnrollment(enrollmentId);
         return ResponseEntity.ok("Enrollment record removed successfully!");
     }
+
+    // Who is in Course X?
+    // GET: http://localhost:8283/api/v1/enrollments/course/{courseId}
+    @GetMapping("/course/{courseId}")
+    public ResponseEntity<List<Enrollment>> getCourseClassList(@PathVariable Long courseId) {
+        return ResponseEntity.ok(enrollmentService.getStudentsByCourse(courseId));
+    }
+
+    // All students, all courses, all marks
+    // GET: http://localhost:8283/api/v1/enrollments/all-reports
+    @GetMapping("/all-reports")
+    public ResponseEntity<List<Enrollment>> getMasterReport() {
+        return ResponseEntity.ok(enrollmentService.getAllEnrollments());
+    }
 }

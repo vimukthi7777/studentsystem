@@ -9,4 +9,7 @@ import java.util.List;
 public interface EnrollmentRepo extends JpaRepository<Enrollment, Long> {
     // This allows us to get all marks/grades for one specific student
     List<Enrollment> findByStudentId(Long studentId);
+
+    // 1. For "Who are the students in a specific course"
+    List<Enrollment> findByCourseId(Long courseId);
 }

@@ -1,7 +1,6 @@
 package com.vimukthi.studentsystem.controller;
 
 import com.vimukthi.studentsystem.entity.Course;
-import com.vimukthi.studentsystem.entity.Student;
 import com.vimukthi.studentsystem.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +34,15 @@ public class CourseController {
     @PutMapping("/{id}")
     public ResponseEntity<Course> update(@PathVariable Long id, @RequestBody Course courseDetails) {
         return ResponseEntity.ok(courseService.update(id, courseDetails));
+    }
+
+    @PutMapping("/{courseId}/assign/lecturer/{lecturerId}/department/{deptId}")
+    public ResponseEntity<Course> assignDetails(
+            @PathVariable Long courseId,
+            @PathVariable Long lecturerId,
+            @PathVariable Long deptId) {
+
+        return ResponseEntity.ok(courseService.assignDetails(courseId, lecturerId, deptId));
     }
 
     @DeleteMapping("/{id}")

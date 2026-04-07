@@ -75,4 +75,14 @@ public class EnrollmentService {
         if (marks >= 45) return "S";
         return "F";
     }
+
+    // Get all students enrolled in a specific course (Class List)
+    public List<Enrollment> getStudentsByCourse(Long courseId) {
+        return enrollmentRepo.findByCourseId(courseId);
+    }
+
+    // Get Every Enrollment in the entire system (Master Grade Sheet)
+    public List<Enrollment> getAllEnrollments() {
+        return enrollmentRepo.findAll();
+    }
 }
