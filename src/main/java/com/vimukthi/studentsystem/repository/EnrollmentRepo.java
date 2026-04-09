@@ -12,4 +12,5 @@ public interface EnrollmentRepo extends JpaRepository<Enrollment, Long> {
 
     // 1. For "Who are the students in a specific course"
     List<Enrollment> findByCourseId(Long courseId);
+
 }
